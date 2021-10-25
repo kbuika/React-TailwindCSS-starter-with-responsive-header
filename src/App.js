@@ -1,22 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import Header from "./layout/header";
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
 function App() {
+  const [auth, setAuth] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("auth", auth);
+  }, [auth]);
   return (
     <div className="App">
+      <Header auth={auth} />
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+        <p>React + TailwindCSS Starter</p>
+        <button
+          className={
+            "block px-4 py-2 text-lg text-white-700 w-9/12  text-center ml-6 underline"
+          }
+          onClick={() => {
+            setAuth(!auth);
+          }}
         >
-          Learn React
-        </a>
+          toggle auth state
+        </button>
       </header>
     </div>
   );
